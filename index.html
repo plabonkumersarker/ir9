@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #444;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f8f8;
+        }
+        .note {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #888;
+        }
+        .download-link {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #888;
+            text-decoration: none;
+        }
+        .download-link:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 14px;
+                padding: 8px;
+            }
+            h1, h2 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IR09 - 3rd Semester</h1>
+        <h2 id="day"></h2>
+        <table id="routine">
+            <!-- Routine -->
+        </table>
+        <p class="note" id="no-class-message"></p>
+        <a class="download-link" href="routine.jpeg" download>Open Full Routine</a>
+                <p class="note">Note: Routine updates based on the current day. You are advised to monitor the departmental group for any unexpected updates.</p>
+    </div>
+
+    <script>
+        const routines = {
+            "Sunday": [
+                { time: "8:30am - 10:00am", subject: "Strategic Studies", room: "1103" },
+                { time: "10:15am - 11:45am", subject: "Contemporary Global Issues", room: "1103" }
+            ],
+            "Monday": [
+                { time: "10:15am - 11:45am", subject: "Foreign Policy Analysis", room: "1101" },
+                { time: "12:00pm - 1:30pm", subject: "Bangladesh in Global Affairs", room: "1104" }
+            ],
+            "Tuesday": [
+                { time: "8:30am - 10:00am", subject: "Strategic Studies", room: "1101" },
+                { time: "10:15am - 11:45am", subject: "Bangladesh in Global Affairs", room: "1103" }
+            ],
+            "Wednesday": [
+                { time: "8:30am - 10:00am", subject: "Media and International Relations", room: "1104" },
+                { time: "10:15am - 11:45am", subject: "Foreign Policy Analysis", room: "1103" }
+            ],
+            "Thursday": [
+                { time: "10:15am - 11:45am", subject: "Media and International Relations", room: "1102" },
+                { time: "12:00pm - 1:30pm", subject: "Contemporary Global Issues", room: "1101" }
+            ]
+        };
+
+        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const today = new Date().getDay();
+        const todayName = dayNames[today];
+
+        document.getElementById('day').innerText = `Today's Schedule: ${todayName}`;
+
+        const routineTable = document.getElementById('routine');
+        const noClassMessage = document.getElementById('no-class-message');
+        
+        if (routines[todayName] && routines[todayName].length > 0) {
+            routineTable.innerHTML = `
+                <tr>
+                    <th>Time</th>
+                    <th>Subject</th>
+                    <th>Room</th>
+                </tr>
+            `;
+            routines[todayName].forEach(item => {
+                const row = `<tr>
+                    <td>${item.time}</td>
+                    <td>${item.subject}</td>
+                    <td>${item.room}</td>
+                </tr>`;
+                routineTable.innerHTML += row;
+            });
+        } else {
+            noClassMessage.innerText = "No classes today.";
+        }
+    </script>
+</body>
+</html>
